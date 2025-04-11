@@ -4,9 +4,13 @@ Este repositório contém o front-end do projeto desenvolvido para a disciplina 
 
 O sistema permite que médicos criem **formulários personalizados** para realização de **pesquisas clínicas**, com o objetivo de **auxiliar na obtenção de diagnósticos mais precisos** para seus pacientes.
 
+---
+
 ## ⚙️ Requisitos
 
 - [Docker](https://www.docker.com/) instalado
+
+---
 
 
 ## Como Executar em Desenvolvimento
