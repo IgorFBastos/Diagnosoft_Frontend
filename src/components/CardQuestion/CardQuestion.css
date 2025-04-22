@@ -1,0 +1,13 @@
+
+
+.cardQuestion-container {
+    display: flex;
+    width: 800px;
+    margin-bottom: 10px;
+}
+
+.questionAndType-container {
+    background-color: gray;
+    width: 100%;
+    
+}

@@ -1,14 +1,15 @@
-import { useState } from 'react'
 
+
+
+import AppRoutes from "@routes/AppRoutes.jsx";
 import './App.css'
 
 function App() {
 
-
   return (
-    <>
-      <h1>Diagnosoft </h1>
-    </>
+
+    <AppRoutes/>
+    
   )
 }
 
