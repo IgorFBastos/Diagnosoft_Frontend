@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import HomePage from "@pages/Home/HomePage"
 import FormCreationPage from "@pages/FormCreation/FormCreationPage.jsx";
+import FormPage from "@pages/Form/FormPage";
 
 
 const appRoutes = () => {
@@ -12,6 +13,7 @@ const appRoutes = () => {
             <Routes>
                 <Route path="/" element={<HomePage/>}></Route>
                 <Route path="/form-creation" element={<FormCreationPage/>}></Route>
+                <Route path="/form-response" element={<FormPage/>}></Route>
             </Routes>
         </Router>
     )
