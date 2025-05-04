@@ -1,0 +1,102 @@
+.FormCreation-container {
+  background-color: #0e3a4e;
+  color: white;
+  min-height: 100vh;
+  padding: 100px;
+  font-family: "Segoe UI", sans-serif;
+  align-content: center;
+}
+
+/* botão voltar */
+.back-container {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  gap: 8px;
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+/* campos de texto */
+.inputs-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 500px;
+  margin-bottom: 30px;
+}
+
+.inputs-container h2 {
+  margin: 0 0 8px;
+  font-size: 18px;
+}
+
+.inputs-container input {
+  width: 100%;
+  padding: 10px 15px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+}
+
+/* botão adicionar pergunta (+) */
+.btn-new-question {
+  margin-bottom: 30px;
+}
+
+.btn-new-question button {
+  background-color: #1a6fa8;
+  color: white;
+  font-size: 28px;
+  border: none;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  cursor: pointer;
+}
+
+/* lista perguntas */
+.questions-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 700px;
+}
+
+/* botão de editar pergunta */
+.question-card .edit-icon {
+  color: #1a6fa8;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+/* botão gerar questionário */
+.btn-generate-report {
+  margin-top: 30px;
+}
+
+.btn-generate-report button {
+  padding: 12px 25px;
+  background-color: transparent;
+  border: 2px solid white;
+  color: white;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-family: "Segoe UI", sans-serif;
+  font-weight: bold;
+}
+
+.btn-generate-report button:hover {
+  background-color: white;
+  color: #0e3a4e;
+}
+
+.btn-new-question button:hover {
+  background-color: #155a87;
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+}
