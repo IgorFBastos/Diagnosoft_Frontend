@@ -1,7 +1,7 @@
 FROM node:20-alpine
 
 # Diretório de trabalho
-WORKDIR /app
+WORKDIR /Diagnosoft_Frontend
 
 # Copia apenas os arquivos de dependência primeiro
 COPY package*.json ./
