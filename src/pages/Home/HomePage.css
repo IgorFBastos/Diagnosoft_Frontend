@@ -1,18 +1,6 @@
-/* global.css */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  html, body {
-    height: 100%;
-    background-color: #043f5d;
-    font-family: sans-serif;
-  }
 
-  .HomePage-Container {
-  background-color: #16425B; /* Azul escuro */
+.HomePage-Container {
+  background-color: #16425b;
   height: 100vh;
   display: flex;
   flex-direction: column;
