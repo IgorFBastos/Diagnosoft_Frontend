@@ -13,7 +13,8 @@ const appRoutes = () => {
             <Routes>
                 <Route path="/" element={<HomePage/>}></Route>
                 <Route path="/form-creation" element={<FormCreationPage/>}></Route>
-                <Route path="/form-response" element={<FormPage/>}></Route>
+                <Route path="/form-response/:id" element={<FormPage />} />
+
             </Routes>
         </Router>
     )

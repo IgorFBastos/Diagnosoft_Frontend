@@ -1,4 +1,4 @@
-import { UNSAFE_decodeViaTurboStream, useSearchParams } from 'react-router-dom';
+import {  useParams } from 'react-router-dom';
 
 import { useState } from 'react';
 
@@ -11,15 +11,12 @@ import "./FormPage.css";
 
 
 const FormPage = () => {
-    const [searchParams] = useSearchParams();
-
-    const initialQuestions = JSON.parse(searchParams.get('questions') || '[]');
-    const title = searchParams.get('title') || '';
-    const medic = searchParams.get('medic') || '';
-    const patient = searchParams.get('patient') || '';
 
 
-    const [questions, setQuestions] = useState(initialQuestions);
+    const { id } = useParams();
+
+
+    const [questions, setQuestions] = useState([]);
 
 
 
@@ -127,9 +124,9 @@ const FormPage = () => {
 
 
             <div className="header-form">
-                <h1 className="form-title">{title}</h1>
-                <p className="form-medic">Médico (a): {medic}</p>
-                <p className="form-patient">Paciente: {patient}</p>
+                <h1 className="form-title"></h1>
+                <p className="form-medic">Médico (a): </p>
+                <p className="form-patient">Paciente: </p>
 
             </div>
 
