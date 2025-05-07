@@ -22,39 +22,42 @@ const FormPage = () => {
     const [questions, setQuestions] = useState(initialQuestions);
 
 
-    console.log("questions: ", questions)
 
 
-    const afirmativeQuestion = (question, i) => {
+    const afirmativeQuestion = (q, i) => {
 
+
+        console.log("questionAfirmative: ", q);
 
         const handleCheckboxQuestionYES = () => {
             const updated = [...questions];
-            updated[index].response = { yes: true, no: false };
+
+            console.log("update: ", updated[i])
+            updated[i].response = { yes: true, no: false };
             setQuestions(updated);
         };
 
         const handleCheckboxQuestionNO = () => {
             const updated = [...questions];
-            updated[index].response = { yes: false, no: true };
+            updated[i].response = { yes: false, no: true };
             setQuestions(updated);
         };
 
         return (
 
             <div className="questionCard afirmative-question">
-                <p className="questionNumber">{i}.</p>
+                <p className="questionNumber">{i + 1}.</p>
 
                 <div className="question-response-container">
 
-                    <p className="question">{question}</p>
+                    <p className="question">{q.question}</p>
                     <div className="afirmative-input">
                         <div onClick={handleCheckboxQuestionYES}>
-                            <FontAwesomeIcon icon={faCircleSolid} className="fa-icon" />
+                            <FontAwesomeIcon icon={q.response.yes ? faCircleSolid : faCircleRegular} className="fa-icon" />
                             sim
                         </div>
                         <div onClick={handleCheckboxQuestionNO}>
-                            <FontAwesomeIcon icon={faCircleRegular} className="fa-icon" />
+                            <FontAwesomeIcon icon={q.response.no ? faCircleSolid : faCircleRegular} className="fa-icon" />
                             não
                         </div>
                     </div>
@@ -64,32 +67,58 @@ const FormPage = () => {
         )
     }
 
-    const descriptiveQuestion = (question, i) => {
+    const descriptiveQuestion = (q, i) => {
+
+        const handleDescriptiveResponse = (e) => {
+
+            const updated = [...questions];
+            updated[i].response.text = e.target.value;
+            setQuestions(updated);
+        }
 
         return (
 
             <div className="questionCard descriptive-question">
-                <p className="questionNumber">{i}.</p>
+                <p className="questionNumber">{i + 1}.</p>
                 <div className="question-response-container">
-                    <p className="question">{question}</p>
-                    <textarea className="description-input" name="" id="" placeholder="descreva sua resposta"></textarea>
+                    <p className="question">{q.question}</p>
+                    <textarea 
+                        className="description-input"
+                        placeholder="descreva sua resposta"
+                        onChange={(e) => handleDescriptiveResponse(e)}></textarea>
                 </div>
             </div>
         )
     }
 
 
-    const numericQuestion = (question, i) => {
+    const numericQuestion = (q, i) => {
+
+        const handleNumericResponse = (e) => {
+
+            const updated = [...questions];
+            updated[i].response.numeric = e.target.value;
+            setQuestions(updated);
+        }
 
         return (
             <div className="questionCard numeric-question">
-                <p className="questionNumber">{i}.</p>
+                <p className="questionNumber">{i + 1}.</p>
                 <div className="question-response-container">
-                    <p className="question">{question}</p>
-                    <input className="number-input" type="number" placeholder="digite sua resposta" />
+                    <p className="question">{q.question}</p>
+                    <input 
+                        className="number-input" 
+                        type="number" 
+                        placeholder="digite sua resposta" 
+                        onChange={(e) => handleNumericResponse(e)}/>
                 </div>
             </div>
         )
+    }
+
+
+    const handleSubmitQuestions = () => {
+        alert("Ainda não implementado backend para enviar as questions.")
     }
 
     return (
@@ -110,15 +139,15 @@ const FormPage = () => {
 
                     console.log(q)
                     if (q.type === "afirmative") {
-                        return afirmativeQuestion(q.question, i + 1);
+                        return afirmativeQuestion(q, i);
                     }
 
                     if (q.type === "descriptive") {
-                        return descriptiveQuestion(q.question, i + 1);
+                        return descriptiveQuestion(q, i);
                     }
 
                     if (q.type === "numeric") {
-                        return numericQuestion(q.question, i + 1);
+                        return numericQuestion(q, i);
                     }
                 })}
 
@@ -126,7 +155,7 @@ const FormPage = () => {
 
             {/* {questions.lenght && ( */}
                 <div className="btn-submit-form">
-                    <button>Enviar Questionário</button>
+                    <button onClick={handleSubmitQuestions}>Enviar Questionário</button>
                 </div>
             {/* )} */}
 

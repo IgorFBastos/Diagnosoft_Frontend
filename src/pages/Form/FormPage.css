@@ -13,7 +13,6 @@
     border-bottom-right-radius: 20px;
     overflow: hidden;
     padding: 30px 50px;
-    /* ← Adicione isso */
 }
 
 .form-title {
@@ -39,7 +38,7 @@
     color: #203D63;
     font-weight: 600;
     display: flex;
-    padding: 20px;
+    padding: 15px;
 }
 
 .questionNumber {
@@ -51,9 +50,9 @@
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    border: 5px solid #203D63;
+    border: 5px solid #16425B;
     color: #D9DCD6;
-    top: -30px;
+    top: -20px;
     left: -40px;
 }
 
@@ -75,12 +74,30 @@
     margin-right: 10px;
 }
 
+
 .description-input {
+    height: 55px;
+    resize: none;
+    font-family: inherit;
+}
+
+.description-input,
+.number-input {
     width: 95%;
-    height: 45px;
     border-radius: 8px;
     padding: 5px;
     border: 2px solid #939393;
+    
+}
+
+.number-input {
+    padding: 8px 5px;
+} 
+
+.btn-submit-form {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
 }
 
 
@@ -92,9 +109,11 @@
     border-radius: 10px;
     font-size: 1.1rem;
     cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
 
 }
 
 .btn-submit-form button:hover {
-    background: linear-gradient(to bottom, #81C3D7, #2F6690);
+    background-color: #ffffff;
+    color: #043f5d;
 }

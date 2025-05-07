@@ -38,8 +38,8 @@ const ModalQuestionCreation = ({ onClose, onCreateQuestion, onEditQuestion, exis
     };
 
     const handleSave = () => {
-        
-        if(!questionText) {
+
+        if (!questionText) {
             alert("Digite uma pergunta!");
             return;
         }
@@ -47,7 +47,8 @@ const ModalQuestionCreation = ({ onClose, onCreateQuestion, onEditQuestion, exis
         const newQuestion = {
             question: questionText,
             type: questionType,
-            formula: questionFormula
+            formula: questionType === "numeric" ? questionFormula || null : null,
+            response: getInitialResponse(questionType)
         };
 
         if (existingQuestion) {
@@ -55,6 +56,22 @@ const ModalQuestionCreation = ({ onClose, onCreateQuestion, onEditQuestion, exis
         } else {
             onCreateQuestion(newQuestion);
         }
+    };
+
+    const getInitialResponse = (type) => {
+        if (type === "afirmative") {
+            return { yes: true, no: false };
+        }
+    
+        if (type === "descriptive") {
+            return { text: "" };
+        }
+    
+        if (type === "numeric") {
+            return { numeric: null, processed: null };
+        }
+    
+        return null;
     };
 
     return (
