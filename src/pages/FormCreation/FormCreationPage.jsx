@@ -8,6 +8,9 @@ import ModalQuestionCreation from '@components/Modal/ModalQuestionCreation';
 import ModalFormCreation from '@components/Modal/ModalFormCreation'
 import CardQuestion from '@components/CardQuestion/CardQuestion';
 
+import "./FormCreationPage.css";
+
+
 const FormCreationPage = () => {
 
     const navigate = useNavigate();
