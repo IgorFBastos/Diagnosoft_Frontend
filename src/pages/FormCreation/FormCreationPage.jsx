@@ -22,7 +22,7 @@ const FormCreationPage = () => {
     const [editingQuestionIndex, setEditingQuestionIndex] = useState(null);
     const [nameQuestion, setNameQuestion] = useState("");
     const [nameMedic, setNameMedic] = useState("");
-    const [namePatient,  setNamePatient] = useState("");
+    const [namePatient, setNamePatient] = useState("");
 
     const handleCreateQuestion = (newQuestion) => {
         setQuestions(prev => [...prev, newQuestion]);
@@ -37,41 +37,37 @@ const FormCreationPage = () => {
         setShowModalQuestionCreation(false);
     };
 
-    const handleCreationForm = () => {
-
-        if (!questions.length) {
-            alert("Nenhuma pergunta foi criada para gerar o questionário!")
+    const handleCreationForm = async () => {
+        if (!questions.length || !nameQuestion || !nameMedic || !namePatient) {
+            alert("Preencha todos os campos e crie pelo menos uma pergunta.");
             return;
         }
 
-        if (!nameQuestion) {
-            alert("Defina o nome do questionário!")
+        const response = await fetch("http://localhost:5000/api/forms/create", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                form_name: nameQuestion,
+                medic_name: nameMedic,
+                patient_name: namePatient,
+                questions: questions,
+            })
+        });
+
+        if (!response.ok) {
+            const errorText = await response.text();
+            console.error("Erro da API:", errorText);
             return;
         }
 
-        if (!nameMedic) {
-            alert("Defina o nome do médico!")
-            return;
-        }
+        const data = await response.json();
 
-        if (!namePatient) {
-            alert("Defina o nome do paciente!")
-            return;
-        }
-
-    
-
-        const encodedQuestions = encodeURIComponent(JSON.stringify(questions));
-        const encodedNameQuestion = encodeURIComponent(nameQuestion);
-        const encodedNameMedic = encodeURIComponent(nameMedic);
-        const encodedNamePatient = encodeURIComponent(namePatient);
-        
-        console.log("encodedQuestions: ", encodedQuestions)
-        const link = `${window.location.origin}/form-response?questions=${encodedQuestions}&title=${encodedNameQuestion}&medic=${encodedNameMedic}&patient=${encodedNamePatient}`;
-
-        setLinkForm(link);
-        setModalFormCreation(true);
-    }
+        const formUrl = `${window.location.origin}/form-response/${data.formId}`;
+        setLinkForm(formUrl);
+        setModalFormCreation(true); 
+    };
 
 
     return (
@@ -84,17 +80,17 @@ const FormCreationPage = () => {
             <div className="inputs-container">
                 <div>
                     <h2>Nome do Questionário</h2>
-                    <input type="text" onChange={(e) => setNameQuestion(e.target.value)}/>
+                    <input type="text" onChange={(e) => setNameQuestion(e.target.value)} />
                 </div>
 
                 <div>
                     <h2>Nome do Médico</h2>
-                    <input type="text" onChange={(e) => setNameMedic(e.target.value)}/>
+                    <input type="text" onChange={(e) => setNameMedic(e.target.value)} />
                 </div>
 
                 <div>
                     <h2>Nome do Paciente</h2>
-                    <input type="text" onChange={(e) => setNamePatient(e.target.value)}/>
+                    <input type="text" onChange={(e) => setNamePatient(e.target.value)} />
                 </div>
             </div>
 
