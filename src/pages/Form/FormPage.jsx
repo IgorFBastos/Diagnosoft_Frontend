@@ -1,6 +1,6 @@
-import {  useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircle as faCircleSolid } from '@fortawesome/free-solid-svg-icons'
@@ -19,7 +19,36 @@ const FormPage = () => {
     const [questions, setQuestions] = useState([]);
 
 
+    useEffect(()  => {
 
+        console.log("useEffect executado: ", id);
+
+        const fetchForm = async () => {
+
+            const response = await fetch(`http://localhost:5000/api/forms/list/${id}`, {
+                method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            
+        })
+        
+        if (!response.ok) {
+            
+            const errorText = await response.text();
+            console.error("Erro da API:", errorText);
+            return;
+        }
+        
+        const data = await response.json();
+        
+        console.log("data: ", data)
+    }
+
+    fetchForm();
+        
+        
+    }, [])
 
     const afirmativeQuestion = (q, i) => {
 
@@ -79,7 +108,7 @@ const FormPage = () => {
                 <p className="questionNumber">{i + 1}.</p>
                 <div className="question-response-container">
                     <p className="question">{q.question}</p>
-                    <textarea 
+                    <textarea
                         className="description-input"
                         placeholder="descreva sua resposta"
                         onChange={(e) => handleDescriptiveResponse(e)}></textarea>
@@ -103,11 +132,11 @@ const FormPage = () => {
                 <p className="questionNumber">{i + 1}.</p>
                 <div className="question-response-container">
                     <p className="question">{q.question}</p>
-                    <input 
-                        className="number-input" 
-                        type="number" 
-                        placeholder="digite sua resposta" 
-                        onChange={(e) => handleNumericResponse(e)}/>
+                    <input
+                        className="number-input"
+                        type="number"
+                        placeholder="digite sua resposta"
+                        onChange={(e) => handleNumericResponse(e)} />
                 </div>
             </div>
         )
@@ -151,9 +180,9 @@ const FormPage = () => {
             </div>
 
             {/* {questions.lenght && ( */}
-                <div className="btn-submit-form">
-                    <button onClick={handleSubmitQuestions}>Enviar Questionário</button>
-                </div>
+            <div className="btn-submit-form">
+                <button onClick={handleSubmitQuestions}>Enviar Questionário</button>
+            </div>
             {/* )} */}
 
         </div>
