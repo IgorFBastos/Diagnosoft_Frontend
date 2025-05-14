@@ -8,7 +8,10 @@ import ModalQuestionCreation from '@components/Modal/ModalQuestionCreation';
 import ModalFormCreation from '@components/Modal/ModalFormCreation'
 import CardQuestion from '@components/CardQuestion/CardQuestion';
 
+import api from "@service/apiService"
+
 import "./FormCreationPage.css";
+
 
 
 const FormCreationPage = () => {
@@ -43,30 +46,28 @@ const FormCreationPage = () => {
             return;
         }
 
-        const response = await fetch("http://localhost:5000/api/forms/create", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                form_name: nameQuestion,
-                medic_name: nameMedic,
-                patient_name: namePatient,
-                questions: questions,
-            })
-        });
-
-        if (!response.ok) {
-            const errorText = await response.text();
-            console.error("Erro da API:", errorText);
-            return;
+        const body = {
+            form_name: nameQuestion,
+            medic_name: nameMedic,
+            patient_name: namePatient,
+            status: "no-answered",
+            questions: questions,
         }
 
-        const data = await response.json();
+        try {
 
-        const formUrl = `${window.location.origin}/form-response/${data.formId}`;
-        setLinkForm(formUrl);
-        setModalFormCreation(true); 
+            const response = await api.post("/api/forms/create", body)
+
+            const formUrl = `${window.location.origin}/form-response/${response.formId}`;
+            setLinkForm(formUrl);
+            setModalFormCreation(true);
+
+        } catch (error) {
+            console.error("Erro ao criar formulário:", error);
+            alert("Erro ao criar formulário. Tente novamente.");
+        }
+
+
     };
 
 
