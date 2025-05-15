@@ -1,12 +1,13 @@
-import {  useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircle as faCircleSolid } from '@fortawesome/free-solid-svg-icons'
 import { faCircle as faCircleRegular } from '@fortawesome/free-regular-svg-icons'
 
 import "./FormPage.css";
+import api from "@service/apiService"
 
 
 
@@ -16,20 +17,56 @@ const FormPage = () => {
     const { id } = useParams();
 
 
+    const [formData, setFormData] = useState([]);
     const [questions, setQuestions] = useState([]);
+    const [formName, setFormName] = useState("");
+    const [medicName, setMedicName] = useState("")
+    const [patientName, setPatientName] = useState("")
 
+    const [formSubmit, setFormSubmit] = useState(false);
+
+
+
+    useEffect(() => {
+        const fetchForm = async () => {
+            try {
+                const response = await api.get(`/api/forms/list/${id}`);
+
+                console.log("response status: ", response);
+
+                if(response.status === "no-answered") {
+                    console.log("entrou aqui")
+                    setFormData(response);
+                } else {
+                    setFormSubmit(true)
+                }
+
+                
+            } catch (error) {
+                console.error("Erro ao Pegar formulário:", error);
+            }
+        }
+        fetchForm();
+    }, [])
+
+
+    useEffect(() => {
+
+        if (formData.length === 0) return;
+
+        setFormName(formData.form_name);
+        setMedicName(formData.medic_name);
+        setPatientName(formData.patient_name);
+        setQuestions(formData.questions);
+
+    }, [formData])
 
 
 
     const afirmativeQuestion = (q, i) => {
 
-
-        console.log("questionAfirmative: ", q);
-
         const handleCheckboxQuestionYES = () => {
             const updated = [...questions];
-
-            console.log("update: ", updated[i])
             updated[i].response = { yes: true, no: false };
             setQuestions(updated);
         };
@@ -79,7 +116,7 @@ const FormPage = () => {
                 <p className="questionNumber">{i + 1}.</p>
                 <div className="question-response-container">
                     <p className="question">{q.question}</p>
-                    <textarea 
+                    <textarea
                         className="description-input"
                         placeholder="descreva sua resposta"
                         onChange={(e) => handleDescriptiveResponse(e)}></textarea>
@@ -103,61 +140,76 @@ const FormPage = () => {
                 <p className="questionNumber">{i + 1}.</p>
                 <div className="question-response-container">
                     <p className="question">{q.question}</p>
-                    <input 
-                        className="number-input" 
-                        type="number" 
-                        placeholder="digite sua resposta" 
-                        onChange={(e) => handleNumericResponse(e)}/>
+                    <input
+                        className="number-input"
+                        type="number"
+                        placeholder="digite sua resposta"
+                        onChange={(e) => handleNumericResponse(e)} />
                 </div>
             </div>
         )
     }
 
 
-    const handleSubmitQuestions = () => {
-        alert("Ainda não implementado backend para enviar as questions.")
+    const handleSubmitQuestions = async () => {
+
+        // TODO: FAZER CONFIRMAÇÃO SE O USUÁRIO QUER MESMO ENVIAR O FORMULÁRIO E VERIFICAR SE TODAS PERGUNTAS FORAM RESPONDIDAS
+
+        const body = {
+            form_name: formName,
+            medic_name: medicName,
+            patient_name: patientName,
+            status: "answered",
+            questions: questions,
+        }
+
+        try {
+            const response = await api.put(`/api/forms/update/${id}`, body)
+            setFormSubmit(true);
+
+        } catch (error) {
+            console.log("Erro ao enviar questionário. ", error)
+            alert("Erro ao enviar questionario.");
+        }
     }
 
     return (
         <div className="form-response-container">
+            {!formSubmit ? (
+                <div>
+                    <div className="header-form">
+                        <h1 className="form-title">{formName}</h1>
+                        <p className="form-medic">Médico(a): {medicName}</p>
+                        <p className="form-patient">Paciente: {patientName}</p>
+                    </div>
 
+                    <div className="questionCards-container">
+                        {questions.map((q, i) => {
+                            if (q.type === "afirmative") return afirmativeQuestion(q, i);
+                            if (q.type === "descriptive") return descriptiveQuestion(q, i);
+                            if (q.type === "numeric") return numericQuestion(q, i);
+                            return null; 
+                        })}
+                    </div>
 
-
-            <div className="header-form">
-                <h1 className="form-title"></h1>
-                <p className="form-medic">Médico (a): </p>
-                <p className="form-patient">Paciente: </p>
-
-            </div>
-
-            <div className="questionCards-container">
-                {/* Renderiza as perguntas aqui */}
-                {questions.map((q, i) => {
-
-                    console.log(q)
-                    if (q.type === "afirmative") {
-                        return afirmativeQuestion(q, i);
-                    }
-
-                    if (q.type === "descriptive") {
-                        return descriptiveQuestion(q, i);
-                    }
-
-                    if (q.type === "numeric") {
-                        return numericQuestion(q, i);
-                    }
-                })}
-
-            </div>
-
-            {/* {questions.lenght && ( */}
-                <div className="btn-submit-form">
-                    <button onClick={handleSubmitQuestions}>Enviar Questionário</button>
+                    {questions.length > 0 && (
+                        <div className="btn-submit-form">
+                            <button onClick={handleSubmitQuestions}>Enviar Questionário</button>
+                        </div>
+                    )}
                 </div>
-            {/* )} */}
-
+            ) : (
+                <div className="form-submit-sucess">
+                    <p>
+                        Formulário foi enviado com sucesso!   :)
+                    </p>
+                    <p>
+                        O médico responsável retornará com sua avaliação assim que possível.
+                    </p>
+                </div>
+            )}
         </div>
     );
-};
+}
 
 export default FormPage;
