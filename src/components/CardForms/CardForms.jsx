@@ -1,5 +1,5 @@
 
-
+import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck, faClock, faEye, faPen } from '@fortawesome/free-solid-svg-icons'
 
@@ -7,6 +7,15 @@ import { faCheck, faClock, faEye, faPen } from '@fortawesome/free-solid-svg-icon
 import "./CardForms.css"
 
 const CardForms = ({ form }) => {
+
+    const navigate = useNavigate();
+
+    console.log("form: ", form);
+
+    const handleOpenFormResult = () => {
+        const id = form._id;
+        navigate(`/form-result/${id}`)
+    }
 
     return (
         <div className="card-form">
@@ -32,13 +41,13 @@ const CardForms = ({ form }) => {
                         </>
                     )}
                 </p>
-                <p className="link">http://testelink/apsadsd5165</p>
+                <p className="link">http://testelink/apsadsd5165 [link está incorreto]</p>
             </div>
             <div className="options">
                 <p >
                     {form.status === "answered" ?  
                         (
-                            <div>
+                            <div onClick={handleOpenFormResult}>
                                 Visualizar Respostas <FontAwesomeIcon icon={faEye} className="fa-icon"/>
                             </div>
                         )

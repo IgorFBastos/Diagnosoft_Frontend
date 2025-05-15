@@ -63,7 +63,7 @@ const FormsArea = () => {
                 </div>
             </div>
 
-            {forms.length === 0 ?
+            {forms.length !== 0 ?
                 <div className="card-forms-container">
                     {forms.map((form) => {
                         return <CardForms form={form} />
