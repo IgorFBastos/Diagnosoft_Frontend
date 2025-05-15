@@ -1,0 +1,100 @@
+.form-result-container {
+    margin: auto;
+    width: 70vw;
+}
+
+
+.form-result-container .back-container {
+    position: absolute;
+    color: white;
+    left: 70px;
+    margin-top: 20px;
+}
+
+
+
+.resultCard {
+    background-color: white;
+    border-radius: 10px;
+    min-height: 120px;
+    color: #203D63;
+    font-weight: 600;
+    display: flex;
+    padding: 15px;
+}
+
+
+.resultNumber {
+    position: relative;
+    background-color: #3A7CA5;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 5px solid #16425B;
+    color: #D9DCD6;
+    top: -20px;
+    left: -40px;
+}
+
+
+.result-response-container {
+    width: 100%;
+}
+
+.result-response-container .afirmative-response,
+.result-response-container .descriptive-response,
+.result-response-container .numeric-response {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+}
+
+.evaluationField {
+    height: 55px;
+    width: 90%;
+    resize: none;
+    font-family: inherit;
+    margin-top: 10px;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.resultCard-response {
+    font-weight: 400;
+}
+
+.numeric-result .responses-type {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+
+.btn-download {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+.btn-download button {
+    padding: 12px 25px;
+    background-color: transparent;
+    border: 2px solid white;
+    color: white;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-family: "Segoe UI", sans-serif;
+    font-weight: bold;
+}
+
+.btn-download button:hover {
+    background-color: white;
+    color: #0e3a4e;
+}

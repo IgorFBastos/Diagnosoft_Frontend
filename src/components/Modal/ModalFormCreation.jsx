@@ -3,6 +3,9 @@ import { useEffect, useState } from "react"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faXmark, faCircleCheck, faCopy } from '@fortawesome/free-solid-svg-icons'
 
+import { useNavigate } from "react-router-dom";
+
+
 
 
 import "./Modal.css"
@@ -10,13 +13,19 @@ import "./Modal.css"
 
 const ModalQuestionCreation = ({ onClose, link }) => {
 
+    const navigate = useNavigate();
 
 
     return (
         <div className="modal-overlay">
 
             <div className="Modal-container">
-                <FontAwesomeIcon icon={faXmark} onClick={() => onClose(false)} />
+                <FontAwesomeIcon 
+                    icon={faXmark} 
+                    onClick={() => {
+                        onClose(false);
+                        navigate("/forms-area");
+                    }} />
 
                 <div>
                     <FontAwesomeIcon icon={faCircleCheck} />
