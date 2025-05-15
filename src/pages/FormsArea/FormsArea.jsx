@@ -63,12 +63,19 @@ const FormsArea = () => {
                 </div>
             </div>
 
+            {forms.length === 0 ?
+                <div className="card-forms-container">
+                    {forms.map((form) => {
+                        return <CardForms form={form} />
+                    })}
+                </div> :
 
-            <div className="card-forms-container">
-                {forms.map((form) => {
-                    return <CardForms form={form} />
-                })}
-            </div>
+                <div className="info-not-forms">
+                    Nenhum questionário encontrado.
+                </div>
+            }
+
+
 
         </div>
     )

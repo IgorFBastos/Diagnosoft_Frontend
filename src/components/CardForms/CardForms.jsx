@@ -8,7 +8,6 @@ import "./CardForms.css"
 
 const CardForms = ({ form }) => {
 
-
     return (
         <div className="card-form">
             <div className="data">
