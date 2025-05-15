@@ -1,0 +1,30 @@
+
+
+
+.forms-area {
+    margin: auto;
+    width: 70vw;
+    min-height: 100vh;
+}
+
+
+.forms-area .header-container {
+    display: flex;
+    margin-top: 10vh;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10vh;
+}
+
+.forms-area .header-container .back-container {
+    margin-bottom: 0;
+    color: white;
+}
+
+.forms-area .card-forms-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+}
+

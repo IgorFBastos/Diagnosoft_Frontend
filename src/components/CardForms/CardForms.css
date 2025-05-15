@@ -1,0 +1,64 @@
+
+
+
+.card-form {
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 30px;
+    border-radius: 10px;
+}
+
+.card-form .data .patient-name {
+    color: #16425B;
+    margin-bottom: 10px;
+}
+
+
+.card-form .data .form-name {
+    margin-bottom: 5px;
+}
+
+.card-form .data .form-name,
+.card-form .data .createdAt,
+.card-form .data .link {
+    color: #1C78B9;
+    font-weight: 300;
+}
+
+.card-form .data .createdAt{
+    margin-bottom: 10px;
+}
+
+.card-form .data .status {
+    color: #16425B;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.card-form .data .status .fa-icon {
+    margin-left: 10px;
+}
+
+.card-form .options p {
+    color: #16425B;
+    font-size: 18px;
+    font-weight: 500;
+    margin-right: 20px;
+}
+
+.card-form .options p:hover {
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+
+.card-form .options p .fa-icon{
+    margin-left: 20px;
+}
+
+
+
+

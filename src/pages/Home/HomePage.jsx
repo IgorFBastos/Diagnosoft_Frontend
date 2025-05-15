@@ -18,7 +18,7 @@ const HomePage = () => {
 
       <button
         className="btn-access-form"
-        onClick={() => navigate("./questionarios")}
+        onClick={() => navigate("./forms-area")}
       >
         Acessar questionários
       </button>
