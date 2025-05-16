@@ -1,25 +1,92 @@
-
-
-
 .modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.6);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 999;
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
 }
 
 .Modal-container {
-    background-color: white;
-    padding: 2rem;
-    border-radius: 12px;
-    width: 400px;
-    position: relative;
-    z-index: 1000;
-    color: black;
+  background-color: #ffffff;
+  border-radius: 16px;
+  padding: 24px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  font-family: "Segoe UI", sans-serif;
+}
+
+.Modal-container svg {
+  position: absolute;
+  right: 16px;
+  top: 16px;
+  cursor: pointer;
+  color: #888;
+  font-size: 20px;
+  transition: 0.2s;
+}
+
+.Modal-container svg:hover {
+  color: #000;
+}
+
+.question-container h2,
+.questionType-container h2 {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 6px;
+}
+
+textarea,
+select,
+input[type="text"] {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  resize: none;
+  outline: none;
+  transition: 0.2s ease;
+  font-family: "Segoe UI", sans-serif;
+}
+
+textarea:focus,
+select:focus,
+input[type="text"]:focus {
+  border-color: #007bff;
+}
+
+.formula-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.btn-create-question-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 12px;
+}
+
+.btn-create-question-container button {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-create-question-container button:hover {
+  background-color: #0056b3;
 }
