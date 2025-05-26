@@ -6,6 +6,7 @@
   justify-content: center;
   align-items: center;
   z-index: 1000;
+
 }
 
 .Modal-container {
@@ -20,6 +21,8 @@
   flex-direction: column;
   gap: 16px;
   font-family: "Segoe UI", sans-serif;
+  max-height: 80vh;
+  overflow-y: auto;
 }
 
 .Modal-container svg {
@@ -90,3 +93,5 @@ input[type="text"]:focus {
 .btn-create-question-container button:hover {
   background-color: #0056b3;
 }
+
+

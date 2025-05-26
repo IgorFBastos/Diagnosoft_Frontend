@@ -1,0 +1,85 @@
+.calculator {
+    max-width: 360px;
+    margin: 0.5rem auto;
+    padding: 1rem;
+    border-radius: 12px;
+    background-color: #f3f3f3;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    font-family: sans-serif;
+}
+
+.display {
+    width: 100%;
+    padding: 0.8rem;
+    border-radius: 6px;
+    font-size: 1.2rem;
+    border: 1px solid #ccc;
+    background-color: white;
+    overflow-x: auto;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    direction: ltr;
+    margin-bottom: 1rem;
+}
+
+.buttons-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.5rem;
+}
+
+button {
+    padding: 0.5rem;
+    font-size: 1.1rem;
+    border: none;
+    border-radius: 8px;
+    background-color: #e0e0e0;
+    transition: background-color 0.2s ease;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #d0d0d0;
+}
+
+.variable-creator {
+    display: flex;
+    gap: 8px;
+    margin: 12px 0;
+}
+
+.variable-creator input {
+    flex: 1;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+
+.variable-creator button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.variable-buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.5rem;
+    margin-bottom: 1.2rem;
+}
+
+.variable-buttons button {
+
+    padding: 0.5rem;
+    font-size: 1.1rem;
+    border: none;
+    border-radius: 8px;
+    background-color: #b4b4b4;
+    transition: background-color 0.2s ease;
+    cursor: pointer;
+}

@@ -26,6 +26,9 @@ const FormPage = () => {
     const [formSubmit, setFormSubmit] = useState(false);
 
 
+    useEffect(() => {
+        console.log("formData: ", formData)
+    }, [formData]);
 
     useEffect(() => {
         const fetchForm = async () => {
@@ -34,14 +37,14 @@ const FormPage = () => {
 
                 console.log("response status: ", response);
 
-                if(response.status === "no-answered") {
+                if (response.status === "no-answered") {
                     console.log("entrou aqui")
                     setFormData(response);
                 } else {
                     setFormSubmit(true)
                 }
 
-                
+
             } catch (error) {
                 console.error("Erro ao Pegar formulário:", error);
             }
@@ -128,6 +131,8 @@ const FormPage = () => {
 
     const numericQuestion = (q, i) => {
 
+        console.log('q: ', q);
+
         const handleNumericResponse = (e) => {
 
             const updated = [...questions];
@@ -140,11 +145,24 @@ const FormPage = () => {
                 <p className="questionNumber">{i + 1}.</p>
                 <div className="question-response-container">
                     <p className="question">{q.question}</p>
-                    <input
-                        className="number-input"
-                        type="number"
-                        placeholder="digite sua resposta"
-                        onChange={(e) => handleNumericResponse(e)} />
+
+                    {q.variables.length > 1 ?
+                        q.variables.map(variable => (
+                            <div>
+                                {variable}: <input
+                                className="number-input"
+                                type="number"
+                                placeholder={variable}
+                                onChange={(e) => handleNumericResponse(e)} />
+                            </div>
+                        ))
+                        :
+                        <input
+                            className="number-input"
+                            type="number"
+                            placeholder="digite sua resposta"
+                            onChange={(e) => handleNumericResponse(e)} />
+                    }
                 </div>
             </div>
         )
@@ -188,7 +206,7 @@ const FormPage = () => {
                             if (q.type === "afirmative") return afirmativeQuestion(q, i);
                             if (q.type === "descriptive") return descriptiveQuestion(q, i);
                             if (q.type === "numeric") return numericQuestion(q, i);
-                            return null; 
+                            return null;
                         })}
                     </div>
 
