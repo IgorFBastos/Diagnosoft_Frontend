@@ -6,7 +6,7 @@ services:
     ports:
       - "5173:5173"  # Porta do Vite
     volumes:
-      - .:/app
-      - /app/node_modules  # Evita conflito entre node_modules do host e container
+      - .:/Diagnosoft_Frontend
+      - /Diagnosoft_Frontend/node_modules  # Evita conflito entre node_modules do host e container
     environment:
       - NODE_ENV=development
