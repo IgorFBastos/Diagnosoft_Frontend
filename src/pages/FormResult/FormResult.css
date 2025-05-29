@@ -72,6 +72,14 @@
     gap: 10px;
 }
 
+.numeric-response-variables {
+    flex-direction: column !important;
+}
+
+.variables-infos {
+    display: flex;
+    gap: 5px;
+}
 
 .btn-download {
     display: flex;

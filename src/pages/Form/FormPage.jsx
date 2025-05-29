@@ -140,20 +140,39 @@ const FormPage = () => {
             setQuestions(updated);
         }
 
+        const handleNumericResponseVarible = (e, variableName) => {
+            console.log(variableName)
+
+            console.log("i: ", i);
+
+            const updated = [...questions];
+
+            updated[i].variables.map(variable => {
+                if(variable.name === variableName) {
+                    variable.response = e.target.value;
+                }
+            })
+
+
+            console.log("updated: ", updated);
+            setQuestions(updated);
+        }
+
         return (
             <div className="questionCard numeric-question">
                 <p className="questionNumber">{i + 1}.</p>
                 <div className="question-response-container">
                     <p className="question">{q.question}</p>
-
-                    {q.variables.length > 1 ?
+                    
+                    {q.variables.length > 0 ?
                         q.variables.map(variable => (
                             <div>
-                                {variable}: <input
+                                {variable.name} <br/> <input
                                 className="number-input"
                                 type="number"
-                                placeholder={variable}
-                                onChange={(e) => handleNumericResponse(e)} />
+                                variableName={`variable.name`}
+                                placeholder={`Digite ${variable.name}`}
+                                onChange={(e) => handleNumericResponseVarible(e, variable.name)} />
                             </div>
                         ))
                         :
@@ -183,6 +202,8 @@ const FormPage = () => {
 
         try {
             const response = await api.put(`/api/forms/update/${id}`, body)
+
+            console.log(response);
             setFormSubmit(true);
 
         } catch (error) {

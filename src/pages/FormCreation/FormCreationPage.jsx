@@ -27,6 +27,10 @@ const FormCreationPage = () => {
     const [nameMedic, setNameMedic] = useState("");
     const [namePatient, setNamePatient] = useState("");
 
+    useEffect(() => {
+        console.log("questions: ", questions);
+    }, [questions])
+
     const handleCreateQuestion = (newQuestion) => {
         setQuestions(prev => [...prev, newQuestion]);
         setShowModalQuestionCreation(false);
@@ -41,6 +45,8 @@ const FormCreationPage = () => {
     };
 
     const handleCreationForm = async () => {
+
+        console.log("question criadas:  ", questions)
         if (!questions.length || !nameQuestion || !nameMedic || !namePatient) {
             alert("Preencha todos os campos e crie pelo menos uma pergunta.");
             return;

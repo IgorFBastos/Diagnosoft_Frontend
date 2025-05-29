@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import "./Calculator.css";
 
 const operatorButtons = [
+    { label: '.', value: '.' },
     { label: '√', value: 'sqrt(' },
     { label: '^', value: '^' },
     { label: '×', value: '*' },
@@ -66,7 +67,7 @@ const Calculator = ({onSetQuestionFormula, onSetQuestionVariables}) => {
                 type="text"
                 value={formula}
                 placeholder="Defina a formula"
-                readOnly
+                
             />
 
             <div className="variable-creator">

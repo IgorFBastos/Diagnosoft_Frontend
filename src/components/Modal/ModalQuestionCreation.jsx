@@ -19,10 +19,19 @@ const ModalQuestionCreation = ({
   const [questionType, setQuestionType] = useState("afirmative");
   const [questionFormula, setQuestionFormula] = useState(null);
   const [questionVariables, setQuestionVariables] = useState(null);
+  const [variablesData, setVariablesData] = useState(null);
 
   useEffect(() => {
-    console.log("questionF: ", questionFormula)
-  }, [questionFormula])
+    if(!questionVariables) return;
+    
+    const formattedVariables = questionVariables.map((variable) => ({
+      name: variable,
+      response: null,
+    }));
+    setVariablesData(formattedVariables)
+  }, [questionVariables])
+
+
 
   useEffect(() => {
     if (existingQuestion) {
@@ -55,7 +64,7 @@ const ModalQuestionCreation = ({
       type: questionType,
       formula: questionType === "numeric" ? questionFormula || null : null,
       response: getInitialResponse(questionType),
-      variables: questionVariables
+      variables: variablesData
     };
 
     if (existingQuestion) {
@@ -105,7 +114,6 @@ const ModalQuestionCreation = ({
 
         {isNumeric && (
           <div className="formula-container">
-              {/* Aqui vai o código para exibir a calculadora de formulas  */}
               <Calculator onSetQuestionFormula={setQuestionFormula} onSetQuestionVariables={setQuestionVariables}/>
           </div>
         )}
