@@ -1,12 +1,15 @@
 
 import { useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
 import { useNavigate } from "react-router-dom";
 
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
+
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 import api from "@service/apiService"
 
@@ -19,6 +22,8 @@ const FormResult = () => {
     const { id } = useParams();
 
     const navigate = useNavigate();
+
+    const printRef = useRef()
 
     const [formData, setFormData] = useState([]);
     const [questions, setQuestions] = useState([]);
@@ -110,9 +115,6 @@ const FormResult = () => {
 
         console.log("q numeric: ", q)
 
-        const responseNumeric = q.response.numeric;
-        const responseProcessed = q.response.processed;
-
         return (
             <div className="resultCard numeric-result">
                 <p className="resultNumber">{i + 1}.</p>
@@ -122,17 +124,31 @@ const FormResult = () => {
                     <div className="responses-type">
 
                         <div className="numeric-response">
+                            {q.formula ?
+                                <>
+                                    <span>Formula aplicada:</span>
+                                    <span className="resultCard-response">{q.formula}</span>
+                                </>
+                                : ""
+                            }
+                        </div>
 
-                            <span>Resposta do paciente:</span>
-                            <span className="resultCard-response">{responseNumeric}</span>
-
+                        <div className="numeric-response numeric-response-variables">
+                            {q.variables ? q.variables.map(variable => {
+                                return (
+                                    <div className="variables-infos">
+                                        <span>Resposta do campo {variable.name}:</span>
+                                        <span className="resultCard-response">{variable.response}</span>
+                                    </div>
+                                )
+                            })
+                                : ""
+                            }
                         </div>
 
                         <div className="numeric-response">
-
                             <span>Resposta processada pela formula:</span>
-                            <span className="resultCard-response">{responseProcessed}</span>
-
+                            <span className="resultCard-response">{q.response}</span>
                         </div>
 
                     </div>
@@ -145,14 +161,40 @@ const FormResult = () => {
         )
     }
 
+    const handleDownloadForm = async () => {
+
+        console.log("baixar avaliação")
+
+        // Passar a avaliação para PDF
+
+        const element = printRef.current;
+
+        console.log("element: " ,element)
+
+        if (!element) return;
+
+        const canvas = await html2canvas(element, {
+            scale: 2, // melhor resolução
+        });
+
+        const imgData = canvas.toDataURL('image/png');
+        const pdf = new jsPDF('p', 'mm', 'a4');
+
+        const pdfWidth = pdf.internal.pageSize.getWidth();
+        const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+
+        pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+        pdf.save(`avaliacao-${formName || "formulario"}.pdf`);
+    }
+
     return (
         <div className="form-result-container">
             <div className="back-container" onClick={() => navigate("/forms-area")}>
                 <FontAwesomeIcon icon={faChevronLeft} />
                 Voltar
             </div>
-            <div>
-                <div className="header-form">
+            <div ref={printRef}>
+                <div className="header-form" >
                     <h1 className="form-title">{formName}</h1>
                     <p className="form-medic">Médico(a): {medicName}</p>
                     <p className="form-patient">Paciente: {patientName}</p>
@@ -170,7 +212,7 @@ const FormResult = () => {
             </div>
 
             <div className="btn-download">
-                <button onClick={() => handleCreationForm()}>Baixar avaliação</button>
+                <button onClick={() => handleDownloadForm()}>Baixar avaliação</button>
             </div>
 
         </div>

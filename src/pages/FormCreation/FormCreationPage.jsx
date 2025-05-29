@@ -27,6 +27,10 @@ const FormCreationPage = () => {
     const [nameMedic, setNameMedic] = useState("");
     const [namePatient, setNamePatient] = useState("");
 
+    useEffect(() => {
+        console.log("questions: ", questions);
+    }, [questions])
+
     const handleCreateQuestion = (newQuestion) => {
         setQuestions(prev => [...prev, newQuestion]);
         setShowModalQuestionCreation(false);
@@ -41,6 +45,8 @@ const FormCreationPage = () => {
     };
 
     const handleCreationForm = async () => {
+
+        console.log("question criadas:  ", questions)
         if (!questions.length || !nameQuestion || !nameMedic || !namePatient) {
             alert("Preencha todos os campos e crie pelo menos uma pergunta.");
             return;
@@ -52,14 +58,26 @@ const FormCreationPage = () => {
             patient_name: namePatient,
             status: "no-answered",
             questions: questions,
+            link: ''
         }
 
         try {
 
             const response = await api.post("/api/forms/create", body)
 
-            const formUrl = `${window.location.origin}/form-response/${response.formId}`;
+            const formId = response.formId;
+            const formUrl = `${window.location.origin}/form-response/${formId}`;
             setLinkForm(formUrl);
+
+            await api.put(`/api/forms/update/${formId}`, {
+                form_name: nameQuestion,
+                medic_name: nameMedic,
+                patient_name: namePatient,
+                status: "no-answered",
+                questions: questions,
+                link: formUrl, 
+            });
+
             setModalFormCreation(true);
 
         } catch (error) {

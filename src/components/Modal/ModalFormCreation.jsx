@@ -11,32 +11,34 @@ import { useNavigate } from "react-router-dom";
 import "./Modal.css"
 
 
-const ModalQuestionCreation = ({ onClose, link }) => {
+const ModalFormCreation = ({ onClose, link }) => {
 
     const navigate = useNavigate();
 
 
     return (
-        <div className="modal-overlay">
+        <div className="modal-overlay modal-formCreation">
+            <div className="Modal-container modal-formCreation">
+                <div className="scroll-wrapper">
+                    <FontAwesomeIcon
+                        className="fa-icon-close"
+                        icon={faXmark}
+                        onClick={() => {
+                            onClose(false);
+                            navigate("/forms-area");
+                        }} />
 
-            <div className="Modal-container">
-                <FontAwesomeIcon 
-                    icon={faXmark} 
-                    onClick={() => {
-                        onClose(false);
-                        navigate("/forms-area");
-                    }} />
+                    <div className="body">
+                        <FontAwesomeIcon className="fa-icon-check" icon={faCircleCheck} />
 
-                <div>
-                    <FontAwesomeIcon icon={faCircleCheck} />
+                        <h2>Seu questionário foi criado com sucesso!</h2>
 
-                    <h2>Seu questionário foi criado com sucesso!</h2>
 
-                    <a href={link} target="_blank" rel="noreferrer">{link}</a>
-
-                    <div>
-                        <p>Copiar link</p>
-                        <FontAwesomeIcon icon={faCopy} />
+                        <a href={link} target="_blank" className="link" rel="noreferrer">{link}</a>
+                        <div className="copy-link">
+                            <p>Copiar link</p>
+                            <FontAwesomeIcon icon={faCopy} />
+                        </div>
                     </div>
                 </div>
 
@@ -45,4 +47,4 @@ const ModalQuestionCreation = ({ onClose, link }) => {
     )
 }
 
-export default ModalQuestionCreation
+export default ModalFormCreation

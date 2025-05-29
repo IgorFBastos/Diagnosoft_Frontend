@@ -2,7 +2,10 @@ import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
+import Calculator from "@components/Calculator/Calculator";
+
 import "./Modal.css";
+
 
 const ModalQuestionCreation = ({
   onClose,
@@ -10,11 +13,25 @@ const ModalQuestionCreation = ({
   onEditQuestion,
   existingQuestion,
 }) => {
-  const [isNumeric, setIsNumeric] = useState(false);
 
+  const [isNumeric, setIsNumeric] = useState(false);
   const [questionText, setQuestionText] = useState("");
   const [questionType, setQuestionType] = useState("afirmative");
   const [questionFormula, setQuestionFormula] = useState(null);
+  const [questionVariables, setQuestionVariables] = useState(null);
+  const [variablesData, setVariablesData] = useState(null);
+
+  useEffect(() => {
+    if(!questionVariables) return;
+    
+    const formattedVariables = questionVariables.map((variable) => ({
+      name: variable,
+      response: null,
+    }));
+    setVariablesData(formattedVariables)
+  }, [questionVariables])
+
+
 
   useEffect(() => {
     if (existingQuestion) {
@@ -47,6 +64,7 @@ const ModalQuestionCreation = ({
       type: questionType,
       formula: questionType === "numeric" ? questionFormula || null : null,
       response: getInitialResponse(questionType),
+      variables: variablesData
     };
 
     if (existingQuestion) {
@@ -75,7 +93,7 @@ const ModalQuestionCreation = ({
   return (
     <div className="modal-overlay">
       <div className="Modal-container">
-        <FontAwesomeIcon icon={faXmark} onClick={() => onClose(false)} />
+        <FontAwesomeIcon className="fa-icon-close" icon={faXmark} onClick={() => onClose(false)} />
         <div className="question-container">
           <h2>Pergunta:</h2>
           <textarea
@@ -96,17 +114,7 @@ const ModalQuestionCreation = ({
 
         {isNumeric && (
           <div className="formula-container">
-            <div className="input-container">
-              <input
-                type="text"
-                placeholder="Digite uma fórmula se necessário"
-              />
-            </div>
-
-            <div>
-              {/* Aqui vai o código para exibir a calculadora de formulas  */}
-              Aqui teremos a calculadora que será implementada futuramente
-            </div>
+              <Calculator onSetQuestionFormula={setQuestionFormula} onSetQuestionVariables={setQuestionVariables}/>
           </div>
         )}
 

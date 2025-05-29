@@ -6,6 +6,7 @@
   justify-content: center;
   align-items: center;
   z-index: 1000;
+
 }
 
 .Modal-container {
@@ -20,9 +21,11 @@
   flex-direction: column;
   gap: 16px;
   font-family: "Segoe UI", sans-serif;
+  max-height: 80vh;
+  overflow-y: auto;
 }
 
-.Modal-container svg {
+.Modal-container .fa-icon-close {
   position: absolute;
   right: 16px;
   top: 16px;
@@ -32,7 +35,7 @@
   transition: 0.2s;
 }
 
-.Modal-container svg:hover {
+.Modal-container .fa-icon-close:hover {
   color: #000;
 }
 
@@ -89,4 +92,23 @@ input[type="text"]:focus {
 
 .btn-create-question-container button:hover {
   background-color: #0056b3;
+}
+
+
+.modal-overlay.modal-formCreation {
+  color: #16425B;
+}
+
+.modal-formCreation .fa-icon-check {
+  font-size: 80px;
+}
+
+.Modal-container.modal-formCreation .body {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+.Modal-container.modal-formCreation .body {
+  text-align: center;
 }
