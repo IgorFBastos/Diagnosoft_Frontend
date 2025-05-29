@@ -17,25 +17,25 @@ const ModalFormCreation = ({ onClose, link }) => {
 
 
     return (
-        <div className="modal-overlay">
-
-            <div className="Modal-container">
+        <div className="modal-overlay modal-formCreation">
+            <div className="Modal-container modal-formCreation">
                 <div className="scroll-wrapper">
                     <FontAwesomeIcon
+                        className="fa-icon-close"
                         icon={faXmark}
                         onClick={() => {
                             onClose(false);
                             navigate("/forms-area");
                         }} />
 
-                    <div>
-                        <FontAwesomeIcon icon={faCircleCheck} />
+                    <div className="body">
+                        <FontAwesomeIcon className="fa-icon-check" icon={faCircleCheck} />
 
                         <h2>Seu questionário foi criado com sucesso!</h2>
 
-                        <a href={link} target="_blank" rel="noreferrer">{link}</a>
 
-                        <div>
+                        <a href={link} target="_blank" className="link" rel="noreferrer">{link}</a>
+                        <div className="copy-link">
                             <p>Copiar link</p>
                             <FontAwesomeIcon icon={faCopy} />
                         </div>

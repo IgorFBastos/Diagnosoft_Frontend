@@ -93,7 +93,7 @@ const ModalQuestionCreation = ({
   return (
     <div className="modal-overlay">
       <div className="Modal-container">
-        <FontAwesomeIcon icon={faXmark} onClick={() => onClose(false)} />
+        <FontAwesomeIcon className="fa-icon-close" icon={faXmark} onClick={() => onClose(false)} />
         <div className="question-container">
           <h2>Pergunta:</h2>
           <textarea

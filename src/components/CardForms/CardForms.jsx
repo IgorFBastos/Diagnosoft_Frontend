@@ -41,7 +41,7 @@ const CardForms = ({ form }) => {
                         </>
                     )}
                 </p>
-                <p className="link">http://testelink/apsadsd5165 [link está incorreto]</p>
+                <p className="link">{form.link}</p>
             </div>
             <div className="options">
                 <p >
