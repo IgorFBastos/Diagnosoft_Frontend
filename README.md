@@ -52,22 +52,29 @@ O Diagnosoft foi projetado para proporcionar uma interação fluida e eficiente 
 ## 🧱 Estrutura do Projeto
 
 ```
-Diagnosoft/
-├── frontend/
-│   ├── src/
-│   ├── public/
-│   ├── .env.exemple
-│   ├── docker-compose.yml
-│   ├── Dockerfile
-│   ├── package.json
-│   └── vite.config.js
-├── backend/
-│   ├── src/
-│   ├── .env.exemple
-│   ├── docker-compose.yml
-│   ├── Dockerfile
-│   └── package.json
-└── README.md
+DIAGNOSOFT_FRONTEND/
+├── src/
+│ ├── assets/
+│ ├── components/
+│ ├── pages/
+│ ├── Routes/
+│ ├── service/
+│ ├── App.css
+│ ├── App.jsx
+│ ├── global.css
+│ └── main.jsx
+├── .dockerignore
+├── .env
+├── .env.example
+├── .gitignore
+├── docker-compose.yml
+├── Dockerfile
+├── eslint.config.js
+├── index.html
+├── package-lock.json
+├── package.json
+├── README.md
+└── vite.config.js
 ```
 
 ---
@@ -76,6 +83,9 @@ Diagnosoft/
 
 ### Pré-requisitos
 Certifique-se de ter o [Docker](https://www.docker.com/) e o [Docker Compose](https://docs.docker.com/compose/) instalados em sua máquina.
+Além disso, é necessário estar com a **API rodando localmente**. O repositório da API está disponível em:  
+👉 [https://github.com/IgorFBastos/Diagnosoft_API](https://github.com/IgorFBastos/Diagnosoft_API)
+
 
 ### Passos para execução
 
@@ -83,14 +93,12 @@ Certifique-se de ter o [Docker](https://www.docker.com/) e o [Docker Compose](ht
 
    ```bash
    git clone https://github.com/IgorFBastos/Diagnosoft_Frontend.git
-   git clone -b create-docker-compose https://github.com/IgorFBastos/Diagnosoft_API.git
    ```
 
 2. Copie os arquivos de exemplo de variáveis de ambiente:
 
    ```bash
    cp Diagnosoft_Frontend/.env.exemple Diagnosoft_Frontend/.env
-   cp Diagnosoft_API/.env.exemple Diagnosoft_API/.env
    ```
 
 3. Inicie os containers com o Docker Compose:
@@ -102,7 +110,7 @@ Certifique-se de ter o [Docker](https://www.docker.com/) e o [Docker Compose](ht
 4. Acesse a aplicação no seu navegador:
 
    ```
-   http://localhost:3000
+   http://localhost:5173
    ```
 
 ---
@@ -123,7 +131,4 @@ O diagrama abaixo representa os principais atores e funcionalidades do sistema D
 
 ---
 
-## 🔒 Segurança e Privacidade
-O Diagnosoft foi desenvolvido com foco na segurança e privacidade dos dados dos pacientes, seguindo as melhores práticas de desenvolvimento seguro e conformidade com regulamentações de proteção de dados.
 
----
