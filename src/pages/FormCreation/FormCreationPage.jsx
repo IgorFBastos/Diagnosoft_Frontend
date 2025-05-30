@@ -58,14 +58,26 @@ const FormCreationPage = () => {
             patient_name: namePatient,
             status: "no-answered",
             questions: questions,
+            link: ''
         }
 
         try {
 
             const response = await api.post("/api/forms/create", body)
 
-            const formUrl = `${window.location.origin}/form-response/${response.formId}`;
+            const formId = response.formId;
+            const formUrl = `${window.location.origin}/form-response/${formId}`;
             setLinkForm(formUrl);
+
+            await api.put(`/api/forms/update/${formId}`, {
+                form_name: nameQuestion,
+                medic_name: nameMedic,
+                patient_name: namePatient,
+                status: "no-answered",
+                questions: questions,
+                link: formUrl, 
+            });
+
             setModalFormCreation(true);
 
         } catch (error) {
