@@ -118,6 +118,9 @@ Certifique-se de ter o [Docker](https://www.docker.com/) e o [Docker Compose](ht
 ## 📊 Diagrama de Casos de Uso
 O diagrama abaixo representa os principais atores e funcionalidades do sistema Diagnosoft:
 
+![image](https://github.com/user-attachments/assets/23db65f2-8882-404a-a08f-8a831c68ac2c)
+
+
 ---
 
 ## 🔒 Segurança e Privacidade
