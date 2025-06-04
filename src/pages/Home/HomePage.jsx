@@ -13,7 +13,7 @@ const HomePage = () => {
         className="btn-new-form"
         onClick={() => navigate("./form-creation")}
       >
-        Novo questionário
+        Questionário personalizado
       </button>
 
       <button
@@ -22,6 +22,22 @@ const HomePage = () => {
       >
         Acessar questionários
       </button>
+
+      <button
+        className="btn-access-form"
+        onClick={() => navigate("./form-template")}
+      >
+        Questionário genérico
+      </button>
+
+      <button
+        className="btn-access-form"
+        onClick={() => navigate("./form-area-template")}
+      >
+        Área de questionários
+      </button>
+
+
     </div>
   );
 };

@@ -23,7 +23,7 @@
   font-weight: bold;
   margin-top: 10px;
   cursor: pointer;
-  width: 250px; /* mesmo tamanho para os dois */
+  min-width: 260px; 
   text-align: center;
   transition: background-color 0.3s, color 0.3s;
 }
