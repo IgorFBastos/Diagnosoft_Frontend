@@ -1,5 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import "./Calculator.css";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTrash } from '@fortawesome/free-solid-svg-icons'
 
 const operatorButtons = [
     { label: '.', value: '.' },
@@ -28,23 +30,28 @@ const numberButtons = [
     { label: '0', value: '0' },
 ];
 
-const Calculator = ({onSetQuestionFormula, onSetQuestionVariables}) => {
+const Calculator = ({ onSetQuestionFormula, onSetQuestionVariables }) => {
 
     const [formula, setFormula] = useState('');
     const [variables, setVariables] = useState([]);
     const [newVariable, setNewVariable] = useState('');
 
+    const inputRef = useRef(null);
+
     useEffect(() => {
         onSetQuestionFormula(formula)
+        if (inputRef.current) {
+            inputRef.current.scrollLeft = inputRef.current.scrollWidth;
+        }
     }, [formula])
 
     useEffect(() => {
         onSetQuestionVariables(variables)
-    },[variables])
+    }, [variables])
 
     const handleButtonClick = (value) => {
         if (value === 'clear') {
-            setFormula(null);
+            setFormula("");
         } else if (value === 'back') {
             setFormula(formula.slice(0, -1));
         } else {
@@ -60,14 +67,20 @@ const Calculator = ({onSetQuestionFormula, onSetQuestionVariables}) => {
         }
     };
 
+    const handleRemoveVariable = (variableToRemove) => {
+        setVariables(variables.filter(v => v !== variableToRemove));
+    };
+    
+
     return (
         <div className="calculator">
             <input
                 className="display"
+                ref={inputRef}
                 type="text"
                 value={formula}
                 placeholder="Defina a formula"
-                
+                onChange={(e) => setFormula(e.target.value)}
             />
 
             <div className="variable-creator">
@@ -83,9 +96,18 @@ const Calculator = ({onSetQuestionFormula, onSetQuestionVariables}) => {
             {variables.length > 0 && (
                 <div className="variable-buttons">
                     {variables.map((v, i) => (
-                        <button key={i} onClick={() => handleButtonClick(v)}>
-                            {v}
-                        </button>
+                        <div key={i} className="variable-item">
+                            <button onClick={() => handleButtonClick(v)}>
+                                {v}
+                            </button>
+                            <button
+                                className="remove-variable"
+                                onClick={() => handleRemoveVariable(v)}
+                                title={`Remover variável "${v}"`}
+                            >
+                                <FontAwesomeIcon icon={faTrash} />
+                            </button>
+                        </div>
                     ))}
                 </div>
             )}

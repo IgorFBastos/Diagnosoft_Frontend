@@ -17,7 +17,6 @@
     background-color: white;
     overflow-x: auto;
     white-space: nowrap;
-    text-overflow: ellipsis;
     direction: ltr;
     margin-bottom: 1rem;
 }
@@ -82,4 +81,23 @@ button:hover {
     background-color: #b4b4b4;
     transition: background-color 0.2s ease;
     cursor: pointer;
+}
+
+.variable-item {
+    display: inline-flex;
+    align-items: center;
+}
+
+.variable-item button {
+    margin-right: 4px;
+}
+
+.remove-variable {
+    background-color: #f44336 !important;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 2px 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
 }
