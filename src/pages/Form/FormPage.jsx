@@ -91,11 +91,11 @@ const FormPage = () => {
                     <div className="afirmative-input">
                         <div onClick={handleCheckboxQuestionYES}>
                             <FontAwesomeIcon icon={q.response.yes ? faCircleSolid : faCircleRegular} className="fa-icon" />
-                            sim
+                            Sim
                         </div>
                         <div onClick={handleCheckboxQuestionNO}>
                             <FontAwesomeIcon icon={q.response.no ? faCircleSolid : faCircleRegular} className="fa-icon" />
-                            não
+                            Não
                         </div>
                     </div>
 
@@ -191,6 +191,10 @@ const FormPage = () => {
     const handleSubmitQuestions = async () => {
 
         // TODO: FAZER CONFIRMAÇÃO SE O USUÁRIO QUER MESMO ENVIAR O FORMULÁRIO E VERIFICAR SE TODAS PERGUNTAS FORAM RESPONDIDAS
+
+
+        const confirmed = window.confirm("Tem certeza que deseja enviar o questionário?");
+        if (!confirmed) return;
 
         const body = {
             form_name: formName,

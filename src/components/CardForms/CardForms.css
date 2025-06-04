@@ -35,11 +35,25 @@
     color: #16425B;
     font-size: 18px;
     font-weight: 600;
-    margin-bottom: 10px;
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    
 }
 
 .card-form .data .status .fa-icon {
     margin-left: 10px;
+    cursor: default;
+}
+
+.card-form .data .status .fa-icon:hover {
+    background-color: transparent !important;
+}
+
+
+.card-form .options p div {
+    display: flex;
+    align-items: center;
 }
 
 .card-form .options p {
@@ -57,6 +71,9 @@
 
 .card-form .options p .fa-icon{
     margin-left: 20px;
+}
+.card-form .options p .fa-icon:hover {
+    background-color: transparent !important;
 }
 
 

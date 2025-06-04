@@ -70,8 +70,13 @@
     gap: 10px;
 }
 
+.afirmative-input  div {
+    display: flex;
+    align-items: center;
+}
+
 .afirmative-input .fa-icon {
-    margin-right: 10px;
+    margin-right: 5px;
 }
 
 
