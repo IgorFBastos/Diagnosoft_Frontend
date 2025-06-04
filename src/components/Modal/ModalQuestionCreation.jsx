@@ -21,6 +21,13 @@ const ModalQuestionCreation = ({
   const [questionVariables, setQuestionVariables] = useState(null);
   const [variablesData, setVariablesData] = useState(null);
 
+
+  // useEffect(() => {
+  //   console.log("onEditQuestion: ", onEditQuestion)
+
+  //   console.log("existingQuestion: ", existingQuestion)
+  // })
+
   useEffect(() => {
     if(!questionVariables) return;
     
@@ -35,6 +42,8 @@ const ModalQuestionCreation = ({
 
   useEffect(() => {
     if (existingQuestion) {
+      console.log("entrou aqui")
+      console.log("existingQuestion dentro do useeffect : ", existingQuestion)
       setQuestionText(existingQuestion.question);
       setQuestionType(existingQuestion.type);
       setIsNumeric(existingQuestion.type === "numeric");
@@ -90,15 +99,19 @@ const ModalQuestionCreation = ({
     return null;
   };
 
+
+
+
   return (
     <div className="modal-overlay">
       <div className="Modal-container">
-        <FontAwesomeIcon className="fa-icon-close" icon={faXmark} onClick={() => onClose(false)} />
+        <FontAwesomeIcon className="fa-icon-close" icon={faXmark} onClick={() => onClose()} />
         <div className="question-container">
           <h2>Pergunta:</h2>
           <textarea
             rows="4"
             placeholder="Digite a pergunta aqui..."
+            value={questionText}
             onChange={(e) => setQuestionText(e.target.value)}
           />
         </div>

@@ -1,12 +1,12 @@
 
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPen } from '@fortawesome/free-solid-svg-icons'
+import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons'
 
 import "./CardQuestion.css"
 
 
-const CardQuestion = ({ question, type, number, onEdit }) => {
+const CardQuestion = ({ question, type, number, onEdit, onDelete }) => {
     return (
         <div className="cardQuestion-container">
 
@@ -21,9 +21,18 @@ const CardQuestion = ({ question, type, number, onEdit }) => {
                 </div>
             </div>
 
-            <div className="edit-question" onClick={onEdit}>
-                <FontAwesomeIcon icon={faPen} />
+            <div className="icons-container">
+
+                <div className="fa-icon" onClick={onEdit}>
+                    <FontAwesomeIcon icon={faPen} />
+                </div>
+
+                <div className="fa-icon icon-trash" onClick={onDelete}>
+                    <FontAwesomeIcon icon={faTrash} />
+                </div>
+
             </div>
+
         </div>
     )
 }

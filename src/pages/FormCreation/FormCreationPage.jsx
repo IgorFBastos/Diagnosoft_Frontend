@@ -27,9 +27,6 @@ const FormCreationPage = () => {
     const [nameMedic, setNameMedic] = useState("");
     const [namePatient, setNamePatient] = useState("");
 
-    useEffect(() => {
-        console.log("questions: ", questions);
-    }, [questions])
 
     const handleCreateQuestion = (newQuestion) => {
         setQuestions(prev => [...prev, newQuestion]);
@@ -45,6 +42,10 @@ const FormCreationPage = () => {
     };
 
     const handleCreationForm = async () => {
+
+
+        const confirmed = window.confirm("Tem certeza que deseja criar o questionário?");
+        if (!confirmed) return;
 
         console.log("question criadas:  ", questions)
         if (!questions.length || !nameQuestion || !nameMedic || !namePatient) {
@@ -75,7 +76,7 @@ const FormCreationPage = () => {
                 patient_name: namePatient,
                 status: "no-answered",
                 questions: questions,
-                link: formUrl, 
+                link: formUrl,
             });
 
             setModalFormCreation(true);
@@ -88,6 +89,20 @@ const FormCreationPage = () => {
 
     };
 
+    const handleCloseModal = () => {
+        setShowModalQuestionCreation(false);
+        setEditingQuestionIndex(null);
+    }
+
+
+    const handleDeleteQuestion = (index) => {
+        const confirmed = window.confirm("Tem certeza que deseja excluir esta pergunta?");
+        if (!confirmed) return;
+
+        setQuestions(prev => prev.filter((_, i) => i !== index));
+
+    }
+
 
     return (
         <div className="FormCreation-container">
@@ -96,61 +111,68 @@ const FormCreationPage = () => {
                 <FontAwesomeIcon icon={faChevronLeft} />
                 Voltar
             </div>
-            <div className="inputs-container">
-                <div>
-                    <h2>Nome do Questionário</h2>
-                    <input type="text" onChange={(e) => setNameQuestion(e.target.value)} />
+            <div className="card-container">
+
+                <div className="inputs-container">
+                    <div>
+                        <h2>Nome do Questionário</h2>
+                        <input type="text" onChange={(e) => setNameQuestion(e.target.value)} />
+                    </div>
+
+                    <div>
+                        <h2>Nome do Médico</h2>
+                        <input type="text" onChange={(e) => setNameMedic(e.target.value)} />
+                    </div>
+
+                    <div>
+                        <h2>Nome do Paciente</h2>
+                        <input type="text" onChange={(e) => setNamePatient(e.target.value)} />
+                    </div>
                 </div>
 
-                <div>
-                    <h2>Nome do Médico</h2>
-                    <input type="text" onChange={(e) => setNameMedic(e.target.value)} />
+                <div className="btn-new-question">
+                    <button onClick={() => setShowModalQuestionCreation(true)}>+</button>
                 </div>
 
-                <div>
-                    <h2>Nome do Paciente</h2>
-                    <input type="text" onChange={(e) => setNamePatient(e.target.value)} />
+                <div className="questions-container">
+                    {questions.map((q, index) => (
+                        <CardQuestion
+                            question={q.question}
+                            type={q.type}
+                            number={index + 1}
+                            onEdit={() => {
+                                setEditingQuestionIndex(index);
+                                setShowModalQuestionCreation(true);
+                            }}
+                            onDelete={() => handleDeleteQuestion(index)}
+                        />
+                    ))}
                 </div>
+
+                {questions.length > 0 ?
+                    <div className="btn-generate-report">
+                        <button onClick={() => handleCreationForm()}>Gerar Questionário</button>
+                    </div>
+                    : ""
+                }
+
+
+                {showModalQuestionCreation && (
+                    <ModalQuestionCreation
+                        onClose={handleCloseModal}
+                        onCreateQuestion={handleCreateQuestion}
+                        onEditQuestion={handleEditQuestion}
+                        existingQuestion={editingQuestionIndex !== null ? questions[editingQuestionIndex] : null} />
+                )}
+
+                {showModalFormCreation && (
+                    <ModalFormCreation
+                        onClose={setModalFormCreation}
+                        link={linkForm} />
+                )}
+
+
             </div>
-
-            <div className="btn-new-question">
-                <button onClick={() => setShowModalQuestionCreation(true)}>+</button>
-            </div>
-
-            <div className="questions-container">
-                {questions.map((q, index) => (
-                    <CardQuestion
-                        question={q.question}
-                        type={q.type}
-                        number={index + 1}
-                        onEdit={() => {
-                            setEditingQuestionIndex(index);
-                            setShowModalQuestionCreation(true);
-                        }} />
-                ))}
-            </div>
-
-
-            <div className="btn-generate-report">
-                <button onClick={() => handleCreationForm()}>Gerar Questionário</button>
-            </div>
-
-
-            {showModalQuestionCreation && (
-                <ModalQuestionCreation
-                    onClose={setShowModalQuestionCreation}
-                    onCreateQuestion={handleCreateQuestion}
-                    onEditQuestion={handleEditQuestion}
-                    existingQuestion={editingQuestionIndex !== null ? questions[editingQuestionIndex] : null} />
-            )}
-
-            {showModalFormCreation && (
-                <ModalFormCreation
-                    onClose={setModalFormCreation}
-                    link={linkForm} />
-            )}
-
-
         </div>
     )
 }

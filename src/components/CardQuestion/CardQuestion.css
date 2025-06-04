@@ -39,7 +39,7 @@
   text-transform: capitalize;
 }
 
-.edit-question {
+.fa-icon{
   color: #2b76cc;
   cursor: pointer;
   padding: 6px;
@@ -47,6 +47,18 @@
   transition: background-color 0.2s ease;
 }
 
-.edit-question:hover {
+.fa-icon:hover {
   background-color: #e0ecf8;
+}
+
+.icon-trash {
+  color: #ff564a;
+}
+.icon-trash:hover {
+  background-color:#f8e0e0 ;
+}
+
+.icons-container {
+  display: flex;
+  gap: 5px;
 }
