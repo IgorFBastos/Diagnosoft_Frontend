@@ -1,0 +1,24 @@
+
+.optionsBTNS {
+    display: flex;
+    gap: 5px;
+
+}
+
+.optionsBTNS .TemplateSendBtn {
+    color: #2b76cc;
+    background-color: transparent;
+}
+
+.optionsBTNS .TemplateSendBtn:hover {
+    background-color: #cce1f6;
+}
+
+
+.optionsBTNS .DeleteBtn {
+    background-color: transparent !important;
+}
+
+.optionsBTNS .DeleteBtn:hover {
+    background-color: #f8e0e0 !important
+}

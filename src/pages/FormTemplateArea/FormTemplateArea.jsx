@@ -40,6 +40,16 @@ const FormGenericArea = () => {
     }, [])
 
 
+    const handleDeleteTemplate = (idTemplate) => {
+        const confirmed = window.confirm("Tem certeza que deseja excluir este modelo?");
+        if (!confirmed) return;
+
+        setForms(prevForms => prevForms.filter(form => form._id !== idTemplate));
+
+    }
+
+
+
 
 
     return (
@@ -60,7 +70,7 @@ const FormGenericArea = () => {
             {forms.length !== 0 ?
                 <div className="card-forms-container">
                     {forms.map((form) => {
-                        return <CardFormTemplate form={form} />
+                        return <CardFormTemplate form={form} onUpdateForms={setForms} onDeleteTemplate={handleDeleteTemplate} />
                     })}
                 </div> :
 

@@ -1,7 +1,7 @@
 
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheck, faClock, faEye, faPen } from '@fortawesome/free-solid-svg-icons'
+import { faCheck, faClock, faEye } from '@fortawesome/free-solid-svg-icons'
 
 
 import "./CardForms.css"

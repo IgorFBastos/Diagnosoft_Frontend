@@ -15,6 +15,7 @@ const appRoutes = () => {
     return (
         <Router>
             <Routes>
+                <Route path="/form-creation-generic/:id" element={<FormCreationTemplate />} />
                 <Route path="/" element={<HomePage/>}></Route>
                 <Route path="/form-creation" element={<FormCreationPage/>}></Route>
                 <Route path="/form-response/:id" element={<FormPage />} />
@@ -22,7 +23,6 @@ const appRoutes = () => {
                 <Route path="/form-result/:id" element={<FormResult />} />
                 <Route path="/form-template" element={<FormTemplate  />} />
                 <Route path="/form-area-template" element={<FormTemplateArea  />} />
-                <Route path="/form-creation-generic/:id" element={<FormCreationTemplate />} />
                 
             
 

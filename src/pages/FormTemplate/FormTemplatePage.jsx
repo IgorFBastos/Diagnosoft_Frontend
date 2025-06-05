@@ -132,7 +132,7 @@ const FormGeneric = () => {
 
                 {questions.length > 0 ?
                     <div className="btn-generate-report">
-                        <button onClick={() => handleCreationTemplateForm()}>Gerar Questionário</button>
+                        <button onClick={() => handleCreationTemplateForm()}>Gerar Template</button>
                     </div>
                     : ""
                 }

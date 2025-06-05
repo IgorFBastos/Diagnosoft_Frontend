@@ -13,28 +13,28 @@ const HomePage = () => {
         className="btn-new-form"
         onClick={() => navigate("./form-creation")}
       >
-        Questionário personalizado
+        Novo questionário
       </button>
 
       <button
         className="btn-access-form"
         onClick={() => navigate("./forms-area")}
       >
-        Acessar questionários
+        Visualizar respostas
       </button>
 
       <button
         className="btn-access-form"
         onClick={() => navigate("./form-template")}
       >
-        Questionário genérico
+        Novo template
       </button>
 
       <button
         className="btn-access-form"
         onClick={() => navigate("./form-area-template")}
       >
-        Área de questionários
+        Visualizar template
       </button>
 
 

@@ -32,6 +32,9 @@ const FormResult = () => {
     const [patientName, setPatientName] = useState("")
 
 
+    const [evaluations, setEvaluations] = useState({});
+
+
     useEffect(() => {
         const fetchForm = async () => {
             try {
@@ -76,7 +79,14 @@ const FormResult = () => {
                         <span className="resultCard-response">{response}</span>
                     </div>
 
-                    <textarea className="evaluationField" placeholder="Faça a avaliação da resposta do paciente"></textarea>
+                    <textarea
+                        className="evaluationField"
+                        placeholder="Faça a avaliação da resposta do paciente"
+                        value={evaluations[i] || ""}
+                        onChange={(e) =>
+                            setEvaluations((prev) => ({ ...prev, [i]: e.target.value }))
+                        }
+                    />
 
 
                 </div>
@@ -103,7 +113,14 @@ const FormResult = () => {
                         <span className="resultCard-response">{response}</span>
                     </div>
 
-                    <textarea className="evaluationField" placeholder="Faça a avaliação da resposta do paciente"></textarea>
+                    <textarea
+                        className="evaluationField"
+                        placeholder="Faça a avaliação da resposta do paciente"
+                        value={evaluations[i] || ""}
+                        onChange={(e) =>
+                            setEvaluations((prev) => ({ ...prev, [i]: e.target.value }))
+                        }
+                    />
                 </div>
 
             </div>
@@ -153,7 +170,14 @@ const FormResult = () => {
 
                     </div>
 
-                    <textarea className="evaluationField" placeholder="Faça a avaliação da resposta do paciente"></textarea>
+                    <textarea
+                        className="evaluationField"
+                        placeholder="Faça a avaliação da resposta do paciente"
+                        value={evaluations[i] || ""}
+                        onChange={(e) =>
+                            setEvaluations((prev) => ({ ...prev, [i]: e.target.value }))
+                        }
+                    />
                 </div>
 
 
@@ -161,31 +185,73 @@ const FormResult = () => {
         )
     }
 
-    const handleDownloadForm = async () => {
+    const handleDownloadForm = () => {
+        const doc = new jsPDF();
 
-        console.log("baixar avaliação")
+        const margin = 15;
+        const pageWidth = doc.internal.pageSize.getWidth();
+        const maxWidth = pageWidth - margin * 2;
 
-        // Passar a avaliação para PDF
+        let yOffset = 20;
 
-        const element = printRef.current;
+        doc.setFontSize(16);
+        doc.text(`Avaliação: ${formName}`, margin, yOffset, { maxWidth });
+        yOffset += 10;
 
-        console.log("element: " ,element)
+        doc.setFontSize(12);
+        doc.text(`Médico(a): ${medicName}`, margin, yOffset, { maxWidth });
+        yOffset += 7;
+        doc.text(`Paciente: ${patientName}`, margin, yOffset, { maxWidth });
+        yOffset += 10;
 
-        if (!element) return;
+        questions.forEach((q, index) => {
+            doc.setFont(undefined, 'bold');
+            const questionLines = doc.splitTextToSize(`${index + 1}. ${q.question}`, maxWidth);
+            doc.text(questionLines, margin, yOffset);
+            yOffset += questionLines.length * 7;
 
-        const canvas = await html2canvas(element, {
-            scale: 2, // melhor resolução
+            doc.setFont(undefined, 'normal');
+
+            if (q.type === "afirmative") {
+                const response = `Resposta do paciente: ${q.response.yes ? "Sim" : "Não"}`;
+                const responseLines = doc.splitTextToSize(response, maxWidth);
+                doc.text(responseLines, margin, yOffset);
+                yOffset += responseLines.length * 7;
+            }
+
+            if (q.type === "descriptive") {
+                const response = `Resposta: ${q.response.text}`;
+                const responseLines = doc.splitTextToSize(response, maxWidth);
+                doc.text(responseLines, margin, yOffset);
+                yOffset += responseLines.length * 7;
+            }
+
+            if (q.type === "numeric") {
+                const result = `Resultado: ${q.response}`;
+                const resultLines = doc.splitTextToSize(result, maxWidth);
+                doc.text(resultLines, margin, yOffset);
+                yOffset += resultLines.length * 7;
+            }
+
+            const evaluationText = evaluations[index];
+            if (evaluationText) {
+                doc.setFont(undefined, 'italic');
+                const evaluationLines = doc.splitTextToSize(`Avaliação: ${evaluationText}`, maxWidth);
+                doc.text(evaluationLines, margin, yOffset);
+                yOffset += evaluationLines.length * 7;
+            } else {
+                yOffset += 5;
+            }
+
+            if (yOffset > 270) {
+                doc.addPage();
+                yOffset = 20;
+            }
         });
 
-        const imgData = canvas.toDataURL('image/png');
-        const pdf = new jsPDF('p', 'mm', 'a4');
+        doc.save(`avaliacao-${formName || "formulario"}.pdf`);
+    };
 
-        const pdfWidth = pdf.internal.pageSize.getWidth();
-        const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
-
-        pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-        pdf.save(`avaliacao-${formName || "formulario"}.pdf`);
-    }
 
     return (
         <div className="form-result-container">

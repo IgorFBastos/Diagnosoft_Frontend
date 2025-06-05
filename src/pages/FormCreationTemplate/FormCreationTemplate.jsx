@@ -2,7 +2,7 @@
 
 
 import { useEffect, useState } from 'react'
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
 
@@ -27,12 +27,24 @@ const FormCreationTemplate = () => {
     const [namePatient, setNamePatient] = useState("");
 
     useEffect(() => {
-        console.log("pegando o template");
 
-        const response = api.get(`/api/forms/form-template/list/${id}`);
 
-        console.log("response : ", response)
-    },[])
+        const fetchTemplates = async () => {
+
+            console.log("pegando o template");
+
+            const response = await api.get(`/api/forms/form-template/list/${id}`);
+
+            console.log("response : ", response);
+
+            setNameMedic(response.medic_name);
+            setNameQuestion(response.template_name);
+            setQuestions(response.questions);
+
+        }
+
+        fetchTemplates();
+    }, [])
 
     const handleCreateQuestion = (newQuestion) => {
         setQuestions(prev => [...prev, newQuestion]);
@@ -122,17 +134,17 @@ const FormCreationTemplate = () => {
                 <div className="inputs-container">
                     <div>
                         <h2>Nome do Questionário</h2>
-                        <input type="text" onChange={(e) => setNameQuestion(e.target.value)} />
+                        <input value={nameQuestion} type="text" onChange={(e) => setNameQuestion(e.target.value)} />
                     </div>
 
                     <div>
                         <h2>Nome do Médico</h2>
-                        <input type="text" onChange={(e) => setNameMedic(e.target.value)} />
+                        <input value={nameMedic} type="text" onChange={(e) => setNameMedic(e.target.value)} />
                     </div>
 
                     <div>
                         <h2>Nome do Paciente</h2>
-                        <input type="text" onChange={(e) => setNamePatient(e.target.value)} />
+                        <input value={namePatient} type="text" onChange={(e) => setNamePatient(e.target.value)} />
                     </div>
                 </div>
 

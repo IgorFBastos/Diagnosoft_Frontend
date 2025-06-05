@@ -1,33 +1,43 @@
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheck, faClock, faEye} from '@fortawesome/free-solid-svg-icons'
-import { useEffect, useState } from "react";
-import navigate from "navigate";
+import { faTrash, faPaperPlane } from '@fortawesome/free-solid-svg-icons'
+import { useState } from "react";
+import "./CardFormTemplate.css"
+import api from "@service/apiService"
 
 
 
-const CardFormTemplate = ({form}) => {
 
-    // const navigate = useNavigate();
+const CardFormTemplate = ({ form, onUpdateForms, onDeleteTemplate }) => {
+
+    const navigate = useNavigate();
 
     const [idTemplate, setIdTemplate] = useState(form._id)
-
-
-    useEffect(() => {
-        console.log("id: ", idTemplate)
-    })
-
-    console.log("form: ", form);
-
-    // const handleOpenFormResult = () => {
-    //     const id = form._id;
-    //     navigate(`/form-result/${id}`)
-    // }
 
     const handleSendForm = () => {
 
         navigate(`/form-creation-generic/${idTemplate}`);
     }
+
+
+    const handleDeletTemplate = async () => {
+        
+        try {
+
+            const response = await api.delete(`/api/forms/form-template/delete/${idTemplate}`)
+
+            console.log("Template deletado com sucesso. ", response);
+
+            console.log("forms: ", form)
+
+            onDeleteTemplate(idTemplate);
+
+
+        } catch (error) {
+            console.error("Erro ao deletar Template. ", error)
+        }
+    }
+
 
     return (
         <div className="card-form">
@@ -43,8 +53,13 @@ const CardFormTemplate = ({form}) => {
                     }
                 </p>
             </div>
-            <div className="options">
-                <button onClick={handleSendForm}>Enviar para paciente</button>
+            <div className="optionsBTNS">
+                <button className="TemplateSendBtn" onClick={handleSendForm}>
+                    <FontAwesomeIcon icon={faPaperPlane} />
+                </button>
+                <button className="DeleteBtn" onClick={handleDeletTemplate}>
+                    <FontAwesomeIcon icon={faTrash} className="icon-trash" />
+                </button>
             </div>
         </div>
     )
