@@ -56,6 +56,10 @@
     align-items: center;
 }
 
+.card-form .options {
+    display: flex;
+}
+
 .card-form .options p {
     color: #16425B;
     font-size: 18px;
@@ -70,10 +74,15 @@
 
 
 .card-form .options p .fa-icon{
-    margin-left: 20px;
+    margin-left: 5px;
 }
 .card-form .options p .fa-icon:hover {
     background-color: transparent !important;
+}
+
+.card-form .options p .icon-trash:hover {
+    background-color:#f8e0e0 !important;
+    color: #ff564a;
 }
 
 

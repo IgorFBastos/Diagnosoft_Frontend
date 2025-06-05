@@ -36,7 +36,7 @@ const FormsArea = () => {
                 setForms(response);
 
             } catch (error) {
-                console.error("erro ao pegar todos os formulários no db.")
+                console.error("erro ao pegar todos os formulários no db.", error)
             }
 
         }
@@ -44,6 +44,15 @@ const FormsArea = () => {
         fetchGetAllForms();
 
     }, [])
+
+
+    const handleDeleteForm = (idForm) => {
+
+        const confirmed = window.confirm("Tem certeza que deseja excluir este questionário?");
+        if (!confirmed) return;
+
+        setForms(prev => prev.filter(form => form._id !== idForm))
+    }
 
 
 
@@ -66,7 +75,7 @@ const FormsArea = () => {
             {forms.length !== 0 ?
                 <div className="card-forms-container">
                     {forms.map((form) => {
-                        return <CardForms form={form} />
+                        return <CardForms form={form} onDeleteForm={handleDeleteForm} />
                     })}
                 </div> :
 
