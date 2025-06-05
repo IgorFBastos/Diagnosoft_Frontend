@@ -42,7 +42,7 @@ const CardFormTemplate = ({ form, onUpdateForms, onDeleteTemplate }) => {
     return (
         <div className="card-form">
             <div className="data">
-                <h2 className="patient-name">Questionário: {form.template_name}</h2>
+                <h2 className="patient-name">Template: {form.template_name}</h2>
                 <p className="form-name">Médico: {form.medic_name}</p>
                 <p className="createdAt">
                     {new Date(form.createdAt)

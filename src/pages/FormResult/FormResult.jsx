@@ -220,14 +220,14 @@ const FormResult = () => {
             }
 
             if (q.type === "descriptive") {
-                const response = `Resposta: ${q.response.text}`;
+                const response = `Resposta do paciente: ${q.response.text}`;
                 const responseLines = doc.splitTextToSize(response, maxWidth);
                 doc.text(responseLines, margin, yOffset);
                 yOffset += responseLines.length * 7;
             }
 
             if (q.type === "numeric") {
-                const result = `Resultado: ${q.response}`;
+                const result = `Resultado processado: ${q.response}`;
                 const resultLines = doc.splitTextToSize(result, maxWidth);
                 doc.text(resultLines, margin, yOffset);
                 yOffset += resultLines.length * 7;

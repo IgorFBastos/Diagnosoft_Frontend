@@ -59,8 +59,8 @@ const FormGeneric = () => {
 
             const response = await api.post("/api/forms/form-template/createTemplate", body)
             console.log(response)
-            alert("Questionário Criado com sucesso!");
-            navigate("/");
+            alert("Template Criado com sucesso!");
+            navigate("/form-area-template");
 
         } catch (error) {
             console.error("Erro ao criar formulário:", error);
